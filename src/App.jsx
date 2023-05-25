@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,13 +6,19 @@ import './App.css'
 function App() {
   const [url, setUrl] = useState('')
   const [actualUrl, setActualUrl] = useState(undefined)
-//   style="
-//   display: flex;
-//   justify-content: center;
-//   width: 100%;
-//   gap: 10px;
-// "
-// style="width: 100%;height: 70vh;">
+  const iframeRef = useRef();
+
+  useState(
+    () => {
+      console.log({iframeRef})
+    }
+    ,[iframeRef]
+  );
+
+  const onIframeClick = e => {
+    console.log({e})
+  }
+
   return (
     <>  
       <div id="urlInput"  className='read-the-docs'>
@@ -26,7 +32,7 @@ function App() {
           setActualUrl(url)
         } }>Set URL</button>
       </div>
-      <iframe id="zoho-embed" src={actualUrl}
+      <iframe id="zoho-embed" src={actualUrl} ref={iframeRef} onClick={onIframeClick} 
         style={{
           width: '100%',
           height: '70vh'
